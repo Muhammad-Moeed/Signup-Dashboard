@@ -1,38 +1,38 @@
-let signupData = {};
+let savedEmail = '';
+let savedPassword = '';
+let savedUsername = '';
 
-    // Handle sign up form
-    document.getElementById('signupForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      signupData = {
-        name: document.getElementById('signupName').value,
-        email: document.getElementById('signupEmail').value,
-        password: document.getElementById('signupPassword').value
-      };
-      document.getElementById('signup').classList.add('hidden');
-      document.getElementById('signin').classList.remove('hidden');
+function signup() {
+  savedUsername = document.getElementById('signupUsername').value;
+  savedEmail = document.getElementById('signupEmail').value;
+  savedPassword = document.getElementById('signupPassword').value;
+
+  alert('Signup successful!');
+  console.log('User Information:', {
+    username: savedUsername,
+    email: savedEmail,
+    password: savedPassword
+  });
+
+  return false; // Prevent form submission and page reload
+}
+
+function login() {
+  const loginEmail = document.getElementById('loginEmail').value;
+  const loginPassword = document.getElementById('loginPassword').value;
+
+  if (loginEmail !== savedEmail) {
+    alert('Invalid email!');
+  } else if (loginPassword !== savedPassword) {
+    alert('Invalid password!');
+  } else {
+    alert('Login successful!');
+    console.log('Logged in User:', {
+      username: savedUsername,
+      email: savedEmail,
+      password: savedPassword
     });
+  }
 
-    // Handle sign in form
-    document.getElementById('signinForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const email = document.getElementById('signinEmail').value;
-      const password = document.getElementById('signinPassword').value;
-
-      if (email === signupData.email && password === signupData.password) {
-        document.getElementById('signin').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-
-        // Set user profile details
-        document.getElementById('userName').textContent = signupData.name;
-        document.getElementById('userProfileName').textContent = signupData.name;
-        document.getElementById('userProfileEmail').textContent = signupData.email;
-      } else {
-        document.getElementById('signinError').classList.remove('hidden');
-      }
-    });
-
-    // Handle logout
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-      document.getElementById('dashboard').classList.add('hidden');
-      document.getElementById('signin').classList.remove('hidden');
-    });
+  return false; // Prevent form submission and page reload
+}
